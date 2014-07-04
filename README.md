@@ -16,5 +16,5 @@
         grunt-cli
 
 ### Debug & set Breakpoint
-    node debug node_modules\grunt-cli\bin\grunt log
+    node debug node_modules\grunt-cli\bin\grunt deploy
     ref: http://nodejs.org/api/debugger.html

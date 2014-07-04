@@ -2,6 +2,9 @@
 
 module.exports = function (grunt) {
 
+  // 執行一些 Grunt API 做事情, 例如幫忙建資料夾之類的
+  grunt.file.mkdir('test/output');
+
   // config task, Task 的基本屬性設定
   // 以下展示三種寫法
   grunt.initConfig({
@@ -27,17 +30,43 @@ module.exports = function (grunt) {
       1, 5, 6
     ],
 
-    fun2: [
-      [5, 6],
-      [7, 9]
-    ],
+    fun2: {
+      //
+    },
+
+    // 類似變數宣告
+    test_vars: {
+      name: 'grunt-contrib-copy',
+      version: '0.1.0',
+      match: 'folder_one/*'
+    },
+
+    fun4: {
+      // files: [],     // 不能寫在這層, 違背 Gruntfile 架構
+      tesk_job: {
+        options: {
+          mode: '0444',
+        },
+        // grunt 內建的 file pattern api
+        files: [
+          {
+            src: ['tmp/*.*'],
+            dest: 'test/output/'
+          },
+          {
+            src: ['tasks/*.*'],
+            dest: 'test/output<%= test_vars.version %>/'
+          }
+        ]
+      }
+    },
 
     compass: {
       dev: {
         options: {
-         /* ... */
-        outputStyle: 'expanded'
-        },
+          /* ... */
+          outputStyle: 'expanded'
+        }
       },
       staging: {
         options: {
@@ -66,18 +95,18 @@ module.exports = function (grunt) {
     // console.log(Object.keys(this));
     // console.log(this.options);
 
-    // 啟用條件, 基本上要 c*2 才會到這個 breakpoint, grunt
-    // node debug node_modules\grunt-cli\bin\grunt log
-    debugger;
-
   });
 
   grunt.registerMultiTask('fun1', '似乎是採用 forEach 方式來運作.', function() {
     console.log(this.data);
   });
 
+  // ref: http://gruntjs.com/api/inside-tasks#inside-multi-tasks
+  // 在 MultiTask Scope 內提供 Grunt Multi Task API
   grunt.registerMultiTask('fun2', '驗證運作方式.', function() {
     console.log(this.data);
+
+    debugger;
   });
 
   grunt.registerTask('fun3', '驗證運作方式.', function(target) {
@@ -98,7 +127,25 @@ module.exports = function (grunt) {
 
   grunt.registerTask('compass', '驗證運作方式.', function(target) {
     console.log(target);
+
+    // invoke grunt api
+    var tmp = grunt.file.read('./gruntfile.js');
+
+    // 啟用條件, 基本上要 c*2 才會到這個 breakpoint, grunt
+    // node debug node_modules\grunt-cli\bin\grunt log
+    // debugger;
+
+    // Grunt inside Task Utility
+    // ref: http://gruntjs.com/api/inside-tasks#this.files
+    // this.name == grunt.task.current.name
+
+
   });
 
   grunt.registerTask('deploy', ['compass:dev']);
+
+  // load tasks folder 內的 Task 文件
+  // 寫法參考：https://github.com/gruntjs/grunt-contrib-copy/blob/master/tasks/copy.js
+  // 使用 fun4 的 config
+  grunt.loadTasks('tasks');
 };
