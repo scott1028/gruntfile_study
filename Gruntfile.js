@@ -97,6 +97,8 @@ module.exports = function (grunt) {
 
   });
 
+  // When a multi task is run, Grunt looks for a property of the same name in the Grunt configuration
+  // Multi Task 會看 Config
   grunt.registerMultiTask('fun1', '似乎是採用 forEach 方式來運作.', function() {
     console.log(this.data);
   });
@@ -125,7 +127,15 @@ module.exports = function (grunt) {
   // task to do task, grunt deploy 將執行 grunt log 與 grunt fun1
   grunt.registerTask('many', ['log', 'fun1', 'fun3:me']);
 
-  grunt.registerTask('compass', '驗證運作方式.', function(target) {
+  // When a basic task is run, Grunt doesn't look at the configuration or environment
+  grunt.registerTask('single', '單層架構 Task Config', function(target){
+    console.log(this);
+  });
+
+  // basic task 不用參照 grunt config 內的工作
+  // When a basic task is run, Grunt doesn't look at the configuration or environment
+  grunt.registerTask('anyname', '驗證運作方式.', function(target) {
+    console.log(123);
     console.log(target);
 
     // invoke grunt api
@@ -142,7 +152,8 @@ module.exports = function (grunt) {
 
   });
 
-  grunt.registerTask('deploy', ['compass:dev']);
+  // 可以用 basic task 來呼叫 另一個 task
+  grunt.registerTask('deploy', ['anyname:dev']);
 
   // load tasks folder 內的 Task 文件
   // 寫法參考：https://github.com/gruntjs/grunt-contrib-copy/blob/master/tasks/copy.js
