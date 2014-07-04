@@ -18,3 +18,9 @@
 ### Debug & set Breakpoint
     node debug node_modules\grunt-cli\bin\grunt deploy
     ref: http://nodejs.org/api/debugger.html
+
+## Basic Tasks ( .registerTask )
+    When a basic task is run, Grunt doesn't look at the configuration or environment
+
+## Multi Tasks ( .registerMultiTask )
+    When a multi task is run, Grunt looks for a property of the same name in the Grunt configuration. Multi-tasks can have multiple configurations, defined using arbitrarily named "targets.”
