@@ -66,6 +66,10 @@ module.exports = function (grunt) {
     // console.log(Object.keys(this));
     // console.log(this.options);
 
+    // 啟用條件, 基本上要 c*2 才會到這個 breakpoint, grunt
+    // node debug node_modules\grunt-cli\bin\grunt log
+    debugger;
+
   });
 
   grunt.registerMultiTask('fun1', '似乎是採用 forEach 方式來運作.', function() {

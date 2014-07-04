@@ -14,3 +14,7 @@
     如果你沒有這個文件就得手動安裝：
         grunt
         grunt-cli
+
+### Debug & set Breakpoint
+    node debug node_modules\grunt-cli\bin\grunt log
+    ref: http://nodejs.org/api/debugger.html
