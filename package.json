@@ -1,0 +1,17 @@
+{
+  "name": "gruntfile_study",
+  "version": "0.5.0",
+  "dependencies": {
+
+  },
+  "devDependencies": {
+    "grunt": ">=0.4.1",
+    "grunt-cli": ">=0.1.13"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "scripts": {
+
+  }
+}
