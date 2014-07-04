@@ -5,7 +5,9 @@
     npm install grunt-cli
 
 ### Run
-    grunt log
+    grunt log               # run all task by for-loop
+    grunt log:foo
+    grunt log:test
 
 ### package.json
     可以使用這個文件來註冊需要的套件讓 npm install 安裝。
